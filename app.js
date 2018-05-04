@@ -5,20 +5,14 @@ var mysql = require('mysql')
 
 var app = express()
 
-/*
+
 var twitter = new Twitter({
   consumer_key: process.env['CONSUMER_KEY'],
   consumer_secret: process.env['CONSUMER_SECRET'],
   access_token_key: process.env['ACCESS_TOKEN_KEY'],
   access_token_secret: process.env['ACCESS_TOKEN_SECRET']
 })
-*/
-var twitter = new Twitter({
-  consumer_key: '',
-  consumer_secret: '',
-  access_token_key: '',
-  access_token_secret: ''
-})
+
 
 
 
@@ -34,11 +28,20 @@ new CronJob({
 })
 
 
+var connectionString = process.env.MYSQLCONNSTR_localdb;
+
+var host = /Data Source=([0-9\.]+)\:[0-9]+\;/g.exec(connectionString)[1];
+var port = /Data Source=[0-9\.]+\:([0-9]+)\;/g.exec(connectionString)[1];
+var database = /Database=([0-9a-zA-Z]+)\;/g.exec(connectionString)[1];
+var username = /User Id=([a-zA-z0-9\s]+)\;/g.exec(connectionString)[1];
+var password = /Password=(.*)/g.exec(connectionString)[1];
+
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'test_user',
-  password : 'password',
-  database : 'test'
+  host: host,
+  port: port,
+  user: username,
+  password: password,
+  database: database
 })
 
 
