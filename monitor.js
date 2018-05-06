@@ -9,17 +9,17 @@ function checkAlive() {
     var req = https.request(URL, function (res) {
         var code = res.statusCode;
         if (code != 200) {  // 200番正常レスポンス以外の場合
-            var message = "\n*【未病状態】* \n" + URL + " looks no good condition.\n- STATUS CODE " + code;
+            var message = "【未病状態】 " + URL + " looks no good condition. - STATUS CODE " + code;
             context.log(message);
         }
         else{   // 正常な場合
-            var message = URL + " : " + code;
+            var message = "【健康】 " + URL + " : " + code;
             context.log(message);
             context.done();
         }
     });
     req.on('error', function (error) {  // エラー
-        var message = "\n*【危篤状態】* \n" + URL + " is not been reached packets.";
+        var message = "【危篤状態】" + URL + " is not been reached packets.";
         message += "\n - ERROR MESSAGE : " + error.message + "\n";
         context.log(message);
         context.done();
