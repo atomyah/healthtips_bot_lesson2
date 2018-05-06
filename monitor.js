@@ -20,7 +20,7 @@ function checkAlive() {
     });
     req.on('error', function (error) {  // エラー
         var message = "【危篤状態】" + URL + " is not been reached packets.";
-        message += "\n - ERROR MESSAGE : " + error.message + "\n";
+        message += " - ERROR MESSAGE : " + error.message;
         context.log(message);
         context.done();
     });
